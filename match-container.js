@@ -61,10 +61,7 @@ SOFTWARE. */
         }
       `;
       containerQuerySheet.replaceSync(css);
-      document.adoptedStyleSheets = [
-        ...document.adoptedStyleSheets,
-        containerQuerySheet,
-      ];
+      document.adoptedStyleSheets = [...document.adoptedStyleSheets, containerQuerySheet];
       const style = getComputedStyle(element);
       this.matches = style.getPropertyValue(sentinelProperty) === "--true";
 
@@ -98,14 +95,8 @@ SOFTWARE. */
         }
       };
       const _previousValues = {};
-      observedElement.style.setProperty(
-        "transition",
-        `${sentinelProperty} 0.001ms step-start`
-      );
-      observedElement.style.setProperty(
-        "transition-behavior",
-        "allow-discrete"
-      );
+      observedElement.style.setProperty("transition", `${sentinelProperty} 0.001ms step-start`);
+      observedElement.style.setProperty("transition-behavior", "allow-discrete");
       const onTransitionRun = (e) => {
         if (e.target !== observedElement) return;
         const computedStyle = getComputedStyle(observedElement);
@@ -122,8 +113,8 @@ SOFTWARE. */
       _previousValues[sentinelProperty] = currentValue;
     }
   }
-  if (!Element.prototype.matchContainer) {
-    Element.prototype.matchContainer = function (containerQueryString, callback) {
+  if (!Element.prototype.observeContainer) {
+    Element.prototype.observeContainer = function (containerQueryString, callback) {
       return new ContainerQueryList(this, containerQueryString, callback);
     };
   }
